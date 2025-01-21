@@ -1,0 +1,32 @@
+@model User
+  @{ ViewData["Title"] = "User Profil"; }
+
+    <div class="row ">
+      <div class="col-3">
+        <img src="@Url.Content(@Model.Image)" alt="" width="300px">
+      </div>
+      <div class="col-7 bg-white" >
+        <h6>@Model.UserName</h6>
+        <h6 class="mt-3">Yayınlanan Gönderiler</h6>
+        <ul class="list">
+          @foreach (var item in Model.posts) {
+          <li class="list-item"><a href="/posts/details/@item.Url">
+            <i class="bi bi-archive-fill m-1"></i>@item.Title</a></li>
+          <hr class="">
+          }</ul>
+       <hr class="mt-2">
+       <h6>Yorumlar</h6>
+        <ul class="list">
+        @foreach (var item in Model.comments) {
+        <li class="list-item"><a href="/posts/details/@item.post.Url">
+          <i class="bi bi-chat-left-text-fill m-1"></i>@item.Text (@item.post.Title)</a></li>
+        <hr class="">
+        }</ul>
+     
+      </div>
+      <div class="col-2">
+      
+      </div>
+    </div>
+</Post>
+  

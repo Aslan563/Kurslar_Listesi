@@ -1,0 +1,47 @@
+@model PostViewTag
+  @{ ViewData["Title"] = "Post"; }
+
+  <div class="row ">
+    <div class="col-1"></div>
+    <div class="col-7 bg-white" >
+      @if (User.Identity!.IsAuthenticated)
+      {
+        <div><a href="/Post/Create "class="btn btn-primary m-2  ">Kurs Ekle</a></div>
+      }
+      
+      @foreach (var item in Model.posts) {
+      <div class="card mt-2 p-1 border-0">
+        <div class="row">
+        <div class="col-lg-4">
+            <div class="card-image">
+            <img src="@Url.Content(item.Image)" width="200px" height="200px"  class="img-fluid"  alt="" />
+        </div>
+        </div>
+        <div class="col-8">
+            <h5><a href="/posts/details/@item.Url" class="btn-link fw-bold">
+              @item.Title</a></h5>
+            <p>@item.Description</p>
+
+            @foreach(var item1 in item.tags){
+               <a href="/posts/tag/@item1.Url" class="badge bg-@item1.Color bg-opacity  fw-bold">@item1.Text</a>
+            }
+           
+        </div>
+    </div>
+      </div>
+      <hr class="">
+      }
+      <nav>
+        <ul class="pagination mt-3">
+            <li class="page-item"><a href="" class="page-link">1</a></li>
+            <li class="page-item"><a href="" class="page-link">2</a></li>
+            <li class="page-item"><a href="" class="page-link">3</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col-4">
+      <vc:tags-menu></vc:tags-menu>
+      <vc:post-menu></vc:post-menu>
+    </div>
+  </div>
+</Post>

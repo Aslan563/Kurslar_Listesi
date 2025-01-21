@@ -1,0 +1,17 @@
+@model List<Post>
+  <div class="card mt-2">
+    <div class="card title">
+      <h5>New Posts</h5>
+    </div>
+   
+    <div class="p-1">
+      
+        @foreach(var item in Model){
+        
+          <a href="/posts/details/@item.Url" class="btn  mt-2 text-primary"><h6>@item.Title</h6></a><br>
+  
+        }
+    
+    </div>
+  </div></Post
+>

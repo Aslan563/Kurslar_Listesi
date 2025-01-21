@@ -1,0 +1,13 @@
+body{
+   background-color:#c0cfe2 ;
+}
+a{
+    text-decoration: none;
+}
+.avatar{
+    width: 3rem;
+}
+
+a:hover{
+    color: blue;
+}

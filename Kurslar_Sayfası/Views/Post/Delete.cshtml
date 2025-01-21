@@ -1,0 +1,30 @@
+@model PostCreateView
+@{ ViewData["Title"] = "Post Silme"; }
+
+<div class="container bg-white p-2">
+    <h4>Post Silme Sayfası</h4>
+    <form method="post" class="form-group"  asp-controller="Post" asp-action="Delete">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="PostId">
+         
+        <div class="mt-2">
+           <p><strong>@Model.Title</strong> isimli Postu silmek istiyormusunuz?</p>
+        </div>
+      
+        <div class="mt-2">
+            <button type="submit" class="btn btn-danger">Sil</button>
+            <a asp-controller="Post" asp-action="List" class="btn btn-primary ml-2">İptal</a>
+        </div>
+    </form>
+   
+</div>
+
+<!--section Script {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.0/tinymce.min.js" integrity="sha512-/4EpSbZW47rO/cUIb0AMRs/xWwE8pyOLf8eiDWQ6sQash5RP1Cl8Zi2aqa4QEufjeqnzTK8CLZWX7J5ZjLcc1Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#Content'
+      });
+    </script>
+}-->

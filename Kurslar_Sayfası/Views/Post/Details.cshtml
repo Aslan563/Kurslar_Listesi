@@ -1,0 +1,139 @@
+@model Post
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-1"></div>
+        
+       
+        <div class="col-md-7 bg-white p-4 rounded shadow-sm">
+            <div class="card border-0 mb-3">
+                <h5 class="card-title"></h5>
+            </div> 
+
+           
+            <div class="mb-3">
+                @foreach(var item1 in Model.tags){
+                    <a href="/posts/tag/@item1.Url" class="badge bg-@item1.Color bg-opacity  fw-bold">@item1.Text</a>
+                 }
+            </div>
+
+            
+            <div class="mb-3 img-fluid">
+              
+                    <img class="img-fluid rounded" src="@Url.Content(Model.Image)" alt="@Model.Title" width="200px">
+            
+            </div>
+            <div class="my-1">
+              <ul class="list-inline">
+                <li class="list-inline-item"><i class="bi bi-calendar m-1"></i>@Model.Publishedon </li>
+                <li class="list-inline-item">
+                  <i class="bi bi-person-circle"></i><a href="/user/Profil/@Model.user.UserName" class="m-1">@Model.user.UserName</a>
+                </li>
+              </ul>
+            </div>
+            <hr class="mt-2">
+            
+           
+            <div class="card text-muted">
+                <p>@Model.Description</p>
+            </div>
+            <div class="bg-white m-3">
+                   <div class="card bordered-0">
+                    <div class="card-header">@Model.comments.Count() Adet Yorum</div>
+                    <div class="" id="addcomment">
+                @foreach(var comment in Model.comments)
+                {
+                      <div class="commentcontext my-4 d-flex">
+                    <img class="avatar rounded-circle float-start me-3" src="@Url.Content(comment.user.Image)" alt="">
+                    <div>
+                    <div class="mb-2 d-flex">
+                      <a href="/user/Profil/@comment.user.UserName"><h6 class="me-3">@comment.user.UserName</h6></a>
+                       <small>@comment.Publishedon</small>
+                    </div>
+                    <p>@comment.Text</p>
+                </div>
+                </div>
+                }
+            </div>
+            @if(User.Identity!.IsAuthenticated){
+              <hr class="clas mt-2">
+                <h6 class="m-2">yorum ekle</h6>
+               <div class="m-2">
+                <form action="/Post/AddComment" method="post">
+                    <input type="hidden" id="PostId" name="postid" value="@Model.PostId">
+                    <input type="hidden" id="Url" name="url" value="@Model.Url">
+                  
+                    <div class="form-group">
+                        <label class="form-label" for="text">Yorum</label>
+                        <textarea class="form-control" id="Text" id="text" name="text" rows="3"></textarea>
+                    </div>
+                    <button type="submit" id="Kaydet" class="btn btn-primary mt-2">Kaydet</button>
+                  </form>
+               </div>
+           }
+           
+               
+             </div>
+            </div>
+            
+
+           
+            <nav>
+                <ul class="pagination mt-4">
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+    
+        <div class="col-md-4">
+            <vc:tags-menu></vc:tags-menu>
+            <vc:post-menu></vc:post-menu>
+        </div>
+    </div>
+</div>
+
+@section Script {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+    <script type="text/javascript">
+        $(document).ready(function(){
+          $("#Kaydet").on("click", function(){
+            $.ajax({
+              type: 'POST',
+              url: '@Url.Action("AddComment")',
+              dataType: 'json',
+              data: {
+                postid: $('#PostId').val(),
+                text: $('#Text').val(),
+                url: $('#Url').val()
+              },
+              success: function(yorum) {
+                var date=new Date(yorum.publishedon)
+                $("#addcomment").append(
+                  `<div class="my-4 d-flex">
+                      <img class="avatar rounded-circle float-start me-3" src="${yorum.image1}" alt="">
+                      <div>
+                        <div class="mb-2 d-flex">
+                        <a href="/user/Profil/${yorum.username}"><h6 class="me-3">${yorum.username}</h6></a>  
+                          <small>${date.toLocaleDateString()}</small>
+                        </div>
+                        <p>${yorum.text}</p>
+                      </div>
+                    </div>`
+                );
+                console.log(yorum);
+              }
+            });
+           $('#Text').val(""),
+           $('#UserName').val("")
+            return false;
+          });
+          
+
+         
+        });
+    </script>
+}
+

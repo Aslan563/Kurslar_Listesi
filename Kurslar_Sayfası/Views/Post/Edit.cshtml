@@ -1,0 +1,77 @@
+@model PostCreateView
+@{ ViewData["Title"] = "Post Güncelle"; }
+
+<div class="container bg-white p-2">
+    <h4>Post Güncelleme Sayfası</h4>
+
+    
+
+    <form method="post" class="form-group"  asp-controller="Post" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+        <div class="col-8">
+        <input type="hidden" asp-for="PostId">
+         
+        <div class="mt-2">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mt-2">
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mt-2">
+            <label asp-for="Content" class="form-label"></label>
+            <input asp-for="Content" class="form-control">
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+
+       
+        <div class="mt-2">
+            <label asp-for="Url" class="form-label"></label>
+            <textarea asp-for="Url" class="form-control"></textarea>
+            <span asp-validation-for="Url" class="text-danger"></span>
+        </div>
+
+        
+              <div class="mt-2">
+            <input type="checkbox" class="form-check-input" asp-for="isactive">
+            <label class="form-check-label" asp-for="isactive"></label>
+          </div>
+       
+    </div>
+    <div class="col-4">
+        <h6>Tags</h6>
+        @foreach(var tag in ViewBag.tags){
+          <div class="mt-2">
+          <input 
+          name="tagIds"
+          type="checkbox" 
+          class="form-check-input" 
+          value="@tag.TagId"
+          id="@tag.TagId"
+          @(Model.tags.Any(p=>p.TagId==tag.TagId) ? "checked" : "")
+          >
+          <label class="form-check-label" name="tags" for="@tag.TagId">@tag.Text</label>
+        </div>
+      }
+    </div></div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-primary">Güncelle</button>
+        </div>
+    </form>
+</div>
+
+<!--section Script {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.0/tinymce.min.js" integrity="sha512-/4EpSbZW47rO/cUIb0AMRs/xWwE8pyOLf8eiDWQ6sQash5RP1Cl8Zi2aqa4QEufjeqnzTK8CLZWX7J5ZjLcc1Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#Content'
+      });
+    </script>
+}-->

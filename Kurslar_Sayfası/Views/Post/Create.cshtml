@@ -1,0 +1,54 @@
+@model PostCreateView
+@{ ViewData["Title"] = "Post Create"; }
+
+<div class="container bg-white p-2">
+    <h4>Kurs Ekleme Sayfası</h4>
+    <form method="post" class="form-group"  asp-controller="Post" asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
+         
+        <div class="mt-2">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mt-2">
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mt-2">
+            <label asp-for="Content" class="form-label"></label>
+            <input asp-for="Content" class="form-control">
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+
+       
+        <div class="mt-2">
+            <label asp-for="Url" class="form-label"></label>
+            <textarea asp-for="Url" class="form-control"></textarea>
+             <span asp-validation-for="Url" class="text-danger"></span>
+        </div>
+
+        <div  class="mt-2">
+            <label for="imagefile">Kurs resmi seçiniz</label>
+           <input type="file" name="postimagefile" id="imagefile" >
+        
+        </div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+    </form>
+</div>
+
+<!--section Script {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.0/tinymce.min.js" integrity="sha512-/4EpSbZW47rO/cUIb0AMRs/xWwE8pyOLf8eiDWQ6sQash5RP1Cl8Zi2aqa4QEufjeqnzTK8CLZWX7J5ZjLcc1Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#Content'
+      });
+    </script>
+}-->
